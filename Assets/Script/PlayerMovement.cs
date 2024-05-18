@@ -6,21 +6,43 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
+    //Rigidbody2D and GroundCheck components
     [SerializeField] private Rigidbody2D m_rigidbody;
-    //[SerializeField] private float m_maxRunSpeed;
-    //[SerializeField] private float m_maxFallSpeed;
-    [SerializeField, Range(0f, 1f)] private float m_friction;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private LayerMask groundLayer;
 
+    //Physics Variables
+    [SerializeField, Range(0f, 1f)] private float m_friction;
+    [SerializeField] private float m_gravity = 9.81f;
+    [SerializeField] private float m_groundedGravity = 0.5f;
+    [SerializeField] private float m_gravityModifer = 1.2f;
+
+    //Walk Variables
     [SerializeField] private Vector2 m_velocity;
-    [SerializeField] private float m_speed;
-    [SerializeField] private float m_jumpSpeed;
+    [SerializeField] private float m_speed = 8f;
+
+    //Jump Variables
+    [SerializeField] private float m_jumpSpeed = 16f;
+    [SerializeField] private float m_initialJumpSpeed;
+    [SerializeField] private float m_maxJumpHeight = 1f;
+    [SerializeField] private float m_maxJumpTime = 0.5f;
+    [SerializeField] private bool m_isJumpedPressed;
+    [SerializeField] private bool m_canJump = true;
+
+    //Check Variables
+    [SerializeField] private bool m_isGrounded;
+    [SerializeField] private bool m_isJumping;
+    private bool m_isFacingRight = true;
 
     private PlayerInput m_playerInput;
     private movementMode m_movementMode;
 
-    public Vector2 Velocity { get { return m_velocity; } }
+    //Properties
+    public Vector2 Velocity { get { return m_velocity; } set { m_velocity = value; } }
     public float Speed { get { return m_speed; } }
     public float Friction { get { return m_friction; } set { m_friction = value; } }
+    public float JumpSpeed { get { return m_jumpSpeed; } set { m_jumpSpeed = value; } }
+    public bool IsGrounded { get {  return m_isGrounded; } }
 
     private void Awake()
     {
@@ -32,12 +54,15 @@ public class PlayerMovement : MonoBehaviour
         m_playerInput.PlayerMovement.Movement.canceled += onMovementCancel;
         m_playerInput.PlayerMovement.Jumping.performed += OnJump;
         m_playerInput.PlayerMovement.Jumping.canceled += onJumpCancel;
+
+        setUpJumpVariables();
     }
 
     void FixedUpdate()
     {
-        HandleMovement();
         HandleJump();
+        HandleMovement();
+        HandleGravity();
     }
 
     #region Input
@@ -53,40 +78,93 @@ public class PlayerMovement : MonoBehaviour
     {
         m_movementMode = movementMode.MOVING;
         m_velocity.x = context.ReadValue<Vector2>().x;
-        //Debug.Log(m_velocity);
-        //Debug.Log(m_speed);
-        //Debug.Log(m_velocity.x * m_speed);
-        ////Debug.Log(context.ReadValue<Vector2>().x);
-
     }
     void onMovementCancel(InputAction.CallbackContext context)
     {
         m_movementMode = movementMode.IDLE;
-        m_velocity = Vector2.zero;
+        m_velocity.x = 0;
     }
 
     void OnJump(InputAction.CallbackContext context)
     {
         m_movementMode = movementMode.JUMPING;
-        m_velocity.y = m_jumpSpeed;
+        m_isJumpedPressed = true;
     }
 
     void onJumpCancel(InputAction.CallbackContext context)
     {
         m_movementMode = movementMode.FALLING;
-        m_velocity.y = 0;
+        m_isJumpedPressed = false;
     }
     #endregion
 
     #region Handlers
-    public void HandleMovement()
+    private void HandleMovement()
     {
-        m_rigidbody.velocity = m_velocity * m_speed;
+        m_rigidbody.velocity = new Vector2(m_velocity.x * m_speed, m_velocity.y);
+        m_isGrounded = CheckGrounded();
+
+        //Handles player face direction
+        if(m_isFacingRight && m_velocity.x < 0)
+        {
+            Flip();
+        }
+        else if(!m_isFacingRight && m_velocity.x > 0)
+        {
+            Flip();
+        }
+    }
+    private void HandleJump()
+    {
+        if(!m_isJumping && m_isGrounded && m_isJumpedPressed && m_canJump)
+        {
+            m_isJumping = true;
+            m_canJump = false;
+            m_velocity.y = m_initialJumpSpeed;
+        }
+        else if(m_isGrounded)
+        {
+            m_isJumping = false;
+            m_canJump = true;
+        }
+    }
+    private void HandleGravity()
+    {
+        if (m_isGrounded && !m_isJumping)
+        {
+            m_velocity.y = 0;
+        }
+        else if (m_velocity.y < 0)
+        {
+            m_velocity.y -= m_gravity * m_gravityModifer * Time.deltaTime;
+        }
+        else
+        {
+            m_velocity.y -= m_gravity * Time.deltaTime;
+        }
+
+    }
+    #endregion
+
+    #region Helpers
+    private bool CheckGrounded()
+    {
+        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+    }
+    
+    private void Flip()
+    {
+        m_isFacingRight = !m_isFacingRight;
+        Vector3 scale = transform.localScale;
+        scale.x *= -1;
+        transform.localScale = scale;
     }
 
-    public void HandleJump()
+    private void setUpJumpVariables()
     {
-        m_rigidbody.velocity = m_velocity * m_speed;
+        float timeToApex = m_maxJumpTime / 2;
+        m_gravity = (2 * m_maxJumpHeight) / Mathf.Pow(timeToApex, 2);
+        m_initialJumpSpeed = (2 * m_maxJumpHeight)/timeToApex;
     }
     #endregion
 }

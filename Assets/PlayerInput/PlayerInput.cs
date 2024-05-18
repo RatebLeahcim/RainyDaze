@@ -82,7 +82,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""d9606646-facf-477d-a78e-ac0bf19652e1"",
+                    ""id"": ""121cf4c7-5c4f-4845-b087-e5d8a92216a3"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -93,7 +93,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""12a7274e-5355-449e-a514-dc182f1d1223"",
+                    ""id"": ""00269d6d-9351-4250-8bf8-44fa7748d2ff"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
