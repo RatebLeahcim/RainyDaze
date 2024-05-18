@@ -11,8 +11,8 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
-  - 
+  - House
+  - City
   - 
   - 
   - 
@@ -40,4 +40,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: City
+    uniqueID: 4060664205
+    locked: 0
+  - name: Player
+    uniqueID: 2678744207
+    locked: 0
+  - name: Decorations
+    uniqueID: 2059229069
     locked: 0

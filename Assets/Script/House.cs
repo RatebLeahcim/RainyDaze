@@ -8,12 +8,14 @@ public class House : ScriptableObject
     [SerializeField] private Sprite m_exterior;
     [SerializeField] private Sprite m_interior;
 
-    void FadeIn()
+    IEnumerator FadeIn()
     {
         // Fade in the house
+        return null;
     }
-    void FadeOut()
+    IEnumerator FadeOut()
     {
         // Fade out the house
+        return null;
     }
 }

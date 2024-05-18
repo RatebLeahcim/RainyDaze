@@ -49,11 +49,11 @@ public class PlayerMovement : MonoBehaviour
         m_playerInput = new PlayerInput();
         m_rigidbody = GetComponent<Rigidbody2D>();
 
-        m_playerInput.PlayerMovement.Movement.started += OnMovement;
-        m_playerInput.PlayerMovement.Movement.performed += OnMovement;
-        m_playerInput.PlayerMovement.Movement.canceled += onMovementCancel;
-        m_playerInput.PlayerMovement.Jumping.performed += OnJump;
-        m_playerInput.PlayerMovement.Jumping.canceled += onJumpCancel;
+        m_playerInput.PlayerControl.Movement.started += OnMovement;
+        m_playerInput.PlayerControl.Movement.performed += OnMovement;
+        m_playerInput.PlayerControl.Movement.canceled += onMovementCancel;
+        m_playerInput.PlayerControl.Jump.performed += OnJump;
+        m_playerInput.PlayerControl.Jump.canceled += onJumpCancel;
 
         setUpJumpVariables();
     }
@@ -76,6 +76,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void OnMovement(InputAction.CallbackContext context)
     {
+        Debug.Log(context.ReadValue<Vector2>().x);
         m_movementMode = movementMode.MOVING;
         m_velocity.x = context.ReadValue<Vector2>().x;
     }

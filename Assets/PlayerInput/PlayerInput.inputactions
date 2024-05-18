@@ -2,22 +2,22 @@
     "name": "PlayerInput",
     "maps": [
         {
-            "name": "PlayerMovement",
-            "id": "27710dba-f8e4-4730-a1f6-257c54e7b864",
+            "name": "PlayerControl",
+            "id": "2064d6a6-74d9-483f-b334-abe8abc0b152",
             "actions": [
                 {
                     "name": "Movement",
                     "type": "Value",
-                    "id": "b0627c24-ace6-4e10-b2af-983da9a06f29",
+                    "id": "c6365c93-024f-4eef-92ce-9f9aadce28bc",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Jumping",
+                    "name": "Jump",
                     "type": "Button",
-                    "id": "6a54ab8a-d780-4f46-9164-c3f8f1d4ba78",
+                    "id": "71b24160-e916-49f0-be6a-1a97e78b8a5f",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -26,8 +26,8 @@
             ],
             "bindings": [
                 {
-                    "name": "Walking",
-                    "id": "4771d4d3-f3e7-4aff-8a3d-2375dc4f27fa",
+                    "name": "2D Vector",
+                    "id": "4951529b-76ff-40fc-9915-c67ada6d63c1",
                     "path": "2DVector",
                     "interactions": "",
                     "processors": "",
@@ -38,7 +38,7 @@
                 },
                 {
                     "name": "left",
-                    "id": "37e5daa2-7392-4d0a-aa96-c5688329bae4",
+                    "id": "dfbbdd49-c599-4d77-b771-058dea1f3de2",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
@@ -49,7 +49,7 @@
                 },
                 {
                     "name": "right",
-                    "id": "74ae4417-6c7e-4167-9e90-b87b10005f1c",
+                    "id": "767cd467-63f6-4186-b50c-c7c9cf4ba119",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
@@ -60,23 +60,23 @@
                 },
                 {
                     "name": "",
-                    "id": "121cf4c7-5c4f-4845-b087-e5d8a92216a3",
+                    "id": "3b8c0b36-2e1e-4f4e-b65d-b4ba128250f9",
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Jumping",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "00269d6d-9351-4250-8bf8-44fa7748d2ff",
+                    "id": "5f9b6181-00c4-4e3e-a9a6-5130206451e2",
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Jumping",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
