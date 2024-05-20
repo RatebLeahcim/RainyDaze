@@ -23,14 +23,16 @@ Material:
   m_Name: DoorMaterial
   m_Shader: {fileID: -6465566751694194690, guid: bdbed18522540674d869e81cb7603a9c, type: 3}
   m_Parent: {fileID: -876546973899608171, guid: bdbed18522540674d869e81cb7603a9c, type: 3}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ModifiedSerializedProperties: 16
+  m_ValidKeywords:
+  - _BUILTIN_SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 3001
+  stringTagMap:
+    RenderType: Transparent
   disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
@@ -42,7 +44,18 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Alpha: 0
+    - _BUILTIN_AlphaClip: 0
+    - _BUILTIN_Blend: 0
+    - _BUILTIN_CullMode: 2
+    - _BUILTIN_DstBlend: 10
     - _BUILTIN_QueueControl: 0
+    - _BUILTIN_QueueOffset: 1
+    - _BUILTIN_SrcBlend: 5
+    - _BUILTIN_ZTest: 2
+    - _BUILTIN_ZWrite: 0
+    - _BUILTIN_ZWriteControl: 0
+    - _Border_Length: 1
     m_Colors:
     - _Color: {r: 0.4781518, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []

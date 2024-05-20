@@ -76,7 +76,6 @@ public class PlayerMovement : MonoBehaviour
     }
     void OnMovement(InputAction.CallbackContext context)
     {
-        Debug.Log(context.ReadValue<Vector2>().x);
         m_movementMode = movementMode.MOVING;
         m_velocity.x = context.ReadValue<Vector2>().x;
     }
