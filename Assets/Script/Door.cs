@@ -1,16 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class Door : MonoBehaviour
+public class Door : MonoBehaviour, IInteractable
 {
     private Material m_outline;
     [SerializeField] private float m_time = 0.1f;
+
+    [SerializeField] private GameEvent m_onInteractEvent;
+    GameEvent IInteractable.OnInteractEvent { 
+        get => m_onInteractEvent;
+    }
+
 
     private void Awake()
     {
         m_outline = GetComponent<SpriteRenderer>().material;
     }
+
+    public void OnInteract()=> m_onInteractEvent.Raise();
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

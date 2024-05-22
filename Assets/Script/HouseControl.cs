@@ -9,34 +9,25 @@ public class HouseControl : MonoBehaviour
     [SerializeField] private SpriteRenderer m_interior;
 
     [SerializeField] private float m_fadeDuration = 1.0f;
+    [SerializeField] private bool m_entered = false;
 
-    private void Update()
+    public void Interact()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (!m_entered)
         {
-            Enter();
+            m_entered = true;
+            StartCoroutine(FadeIn());
         }
-        if (Input.GetKeyDown(KeyCode.X))
+        else
         {
-            Exit();
+            m_entered = false;
+            StartCoroutine(FadeOut());
         }
-    }
-
-    public void Enter()
-    {
-        StartCoroutine(FadeIn());
-    }
-    
-    public void Exit()
-    {
-        StartCoroutine(FadeOut());
+        
     }
 
     IEnumerator FadeIn()
     {
-        Color initialColor = m_exterior.color;
-        Color targetColor = new Color(initialColor.r, initialColor.g, initialColor.b, 1f);
-
         float elapsedTime = 0.0f;
 
         while (elapsedTime < m_fadeDuration)
