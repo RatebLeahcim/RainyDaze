@@ -137,6 +137,7 @@ public class PlayerMovement : MonoBehaviour
             IInteractable interactable = interacbles[0].GetComponent<IInteractable>();
             if (interactable != null)
             {
+                Debug.Log("Interactable Found");
                 interactable.OnInteract();
             }
             else
@@ -149,10 +150,10 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("No Collisions Found");
         }
 
-        foreach (Collider2D collider in interacbles)
-        {
-            Debug.Log(collider.name);
-        }
+        //foreach (Collider2D collider in interacbles)
+        //{
+        //    Debug.Log(collider.name);
+        //}
     }
 
     #endregion

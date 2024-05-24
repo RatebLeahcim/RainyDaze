@@ -6,6 +6,8 @@ using UnityEngine.Events;
 public class Door : MonoBehaviour, IInteractable
 {
     private Material m_outline;
+    private int id;
+
     [SerializeField] private float m_time = 0.1f;
 
     [SerializeField] private GameEvent m_onInteractEvent;
@@ -16,10 +18,11 @@ public class Door : MonoBehaviour, IInteractable
 
     private void Awake()
     {
+        id = GetComponentInParent<HouseControl>().id;
         m_outline = GetComponent<SpriteRenderer>().material;
     }
 
-    public void OnInteract()=> m_onInteractEvent.Raise();
+    public void OnInteract()=> m_onInteractEvent.Raise(id);
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

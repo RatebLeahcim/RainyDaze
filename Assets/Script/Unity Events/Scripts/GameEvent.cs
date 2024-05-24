@@ -9,18 +9,11 @@ public class GameEvent : ScriptableObject
 {
     [SerializeField] private List<GameEventListener> m_listeners = new List<GameEventListener>();
 
-    public void Raise()
+    public void Raise(int id)
     {
         for (int i = 0; i <= m_listeners.Count - 1; i++)
         {
-            //try
-            //{
-                m_listeners[i].OnEventRaised();
-            //}
-            //catch (System.ArgumentOutOfRangeException)
-            //{
-            //    Debug.Log(i);
-            //}
+            m_listeners[i].OnEventRaised(id);
         }
     }
 
