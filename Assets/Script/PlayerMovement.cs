@@ -37,6 +37,9 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInput m_playerInput;
     private movementMode m_movementMode;
 
+    [SerializeField] private ContactFilter2D m_contactFilter;
+    [SerializeField] private Door door;
+
     //Properties
     public Vector2 Velocity { get { return m_velocity; } set { m_velocity = value; } }
     public float Speed { get { return m_speed; } }
@@ -56,6 +59,8 @@ public class PlayerMovement : MonoBehaviour
         m_playerInput.PlayerControl.Jump.canceled += onJumpCancel;
 
         setUpJumpVariables();
+
+        m_playerInput.PlayerControl.Interact.started += OnInteract;
     }
 
     void FixedUpdate()
@@ -65,18 +70,38 @@ public class PlayerMovement : MonoBehaviour
         HandleGravity();
     }
 
-    #region Input
+    #region Enable/Disable
     void OnEnable()
     {
         m_playerInput.Enable();
+
+        m_playerInput.PlayerControl.Movement.started += OnMovement;
+        m_playerInput.PlayerControl.Movement.performed += OnMovement;
+        m_playerInput.PlayerControl.Movement.canceled += onMovementCancel;
+        m_playerInput.PlayerControl.Jump.performed += OnJump;
+        m_playerInput.PlayerControl.Jump.canceled += onJumpCancel;
+
+        m_playerInput.PlayerControl.Interact.started += OnInteract;
     }
     void OnDisable()
     {
         m_playerInput.Disable();
+
+        m_playerInput.PlayerControl.Movement.started -= OnMovement;
+        m_playerInput.PlayerControl.Movement.performed -= OnMovement;
+        m_playerInput.PlayerControl.Movement.canceled -= onMovementCancel;
+        m_playerInput.PlayerControl.Jump.performed -= OnJump;
+        m_playerInput.PlayerControl.Jump.canceled -= onJumpCancel;
+
+        setUpJumpVariables();
+
+        m_playerInput.PlayerControl.Interact.started -= OnInteract;
     }
+    #endregion
+
+    #region Input
     void OnMovement(InputAction.CallbackContext context)
     {
-        Debug.Log(context.ReadValue<Vector2>().x);
         m_movementMode = movementMode.MOVING;
         m_velocity.x = context.ReadValue<Vector2>().x;
     }
@@ -97,6 +122,40 @@ public class PlayerMovement : MonoBehaviour
         m_movementMode = movementMode.FALLING;
         m_isJumpedPressed = false;
     }
+    #endregion
+    #region Interact
+    void OnInteract(InputAction.CallbackContext context)
+    {
+        //Interact with the object
+        //door.OnInteract();
+
+        Collider2D[] interacbles = new Collider2D[1];
+        int num = Physics2D.OverlapCollider(GetComponent<Collider2D>(), m_contactFilter, interacbles);
+
+        if (num > 0)
+        {
+            IInteractable interactable = interacbles[0].GetComponent<IInteractable>();
+            if (interactable != null)
+            {
+                Debug.Log("Interactable Found");
+                interactable.OnInteract();
+            }
+            else
+            {
+                Debug.Log("No Interactable Found");
+            }
+        }
+        else
+        {
+            Debug.Log("No Collisions Found");
+        }
+
+        //foreach (Collider2D collider in interacbles)
+        //{
+        //    Debug.Log(collider.name);
+        //}
+    }
+
     #endregion
 
     #region Handlers
@@ -168,6 +227,8 @@ public class PlayerMovement : MonoBehaviour
         m_initialJumpSpeed = (2 * m_maxJumpHeight)/timeToApex;
     }
     #endregion
+
+    
 }
 public enum movementMode
 {
