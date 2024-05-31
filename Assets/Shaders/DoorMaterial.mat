@@ -54,7 +54,7 @@ Material:
     - _BUILTIN_ZTest: 2
     - _BUILTIN_ZWrite: 1
     - _BUILTIN_ZWriteControl: 0
-    - _Border_Length: 0
+    - _Border_Length: 2.72
     m_Colors:
     - _Color: {r: 0.4781518, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
