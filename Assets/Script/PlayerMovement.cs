@@ -190,7 +190,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Handles player movement
-        if (m_isOnSlope && m_canWalkOnSlope)
+        if (m_isOnSlope && m_canWalkOnSlope && !m_isJumping)
         {
             m_rigidbody.velocity = new Vector2(m_velocity.x * m_speed * m_slopeNormalPerp.x, m_velocity.x * m_speed * m_slopeNormalPerp.y);
             m_rigidbody.gravityScale = 0;

@@ -161,22 +161,22 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  m_friction: 0
   m_gravity: 9.81
-  m_groundedGravity: 0.5
-  m_gravityModifer: 1.2
+  m_gravityModifer: 3
   m_velocity: {x: 0, y: 0}
   m_speed: 8
   m_jumpSpeed: 16
   m_initialJumpSpeed: 0
-  m_maxJumpHeight: 10
-  m_maxJumpTime: 1.5
+  m_maxJumpHeight: 8
+  m_maxJumpTime: 2
   m_isJumpedPressed: 0
   m_canJump: 1
-  m_isGrounded: 0
-  m_isOnSlope: 0
-  m_slopeCheckDistance: 0.5
   m_isJumping: 0
+  m_isGrounded: 0
+  m_slopeCheckDistance: 0.5
+  m_maxSlopeAngle: 60
+  m_isOnSlope: 0
+  m_canWalkOnSlope: 0
   m_contactFilter:
     useTriggers: 1
     useLayerMask: 1
@@ -279,7 +279,7 @@ Transform:
   m_GameObject: {fileID: 127333207}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.66, y: -1.33, z: 0}
+  m_LocalPosition: {x: -3.15, y: -1.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
